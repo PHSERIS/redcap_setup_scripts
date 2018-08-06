@@ -1,0 +1,8 @@
+cd /etc/yum.repos.d/
+chcon -R -u system_u nginx.repo
+yum --enable nginx
+yum install nginx
+ 
+#### Make sure that apache (if installed) is switched off
+/etc/init.d/./httpd stop
+chkconfig httpd off

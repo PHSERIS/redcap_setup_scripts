@@ -1,0 +1,47 @@
+######################################################################################
+# You can install from REMI
+## For CENTOS 6
+rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-6.rpm
+## For CENTOS 7
+# rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+# and you may need to install EPEL if it is not installed yet
+yum install epel-release
+
+# you need to enable the php56 repo; After you enable this repo all mentions to PHP should refer to PHP 5.6 latest
+yum-config-manager --enable remi-php56
+# yum update --enablerepo=remi-php56
+
+
+# You may need to remove other versions of PHP first if you have any installed
+# yum remove php*
+
+yum install php php-common php-opcache
+
+yum -y install php-devel
+yum -y install php-gd
+yum -y install php-ldap
+yum -y install php-mbstring
+yum -y install php-mysql
+yum -y install php-imap
+yum -y install php-dom
+yum -y install php-pear
+yum -y install php-mcrypt
+yum -y install php-pdo
+yum -y install php-soap
+yum -y install php-xml
+yum -y install php-tidy
+yum -y install php-pecl-mongo
+
+# Setup some of the SELinux permissions
+/usr/sbin/setsebool -P httpd_can_network_connect_db=1
+/usr/sbin/setsebool -P httpd_can_network_connect=1
+/usr/sbin/setsebool -P httpd_can_sendmail=1
+/usr/sbin/setsebool -P httpd_use_nfs=1
+/usr/sbin/setsebool -P httpd_can_connect_ldap=1
+
+# Restart Apache for the changes to take affect
+/etc/init.d/./httpd restart
+
+# CentOS 7
+# systemctl restart httpd
